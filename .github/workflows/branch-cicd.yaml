@@ -20,15 +20,13 @@
 
 ---
 
-name: 🤪 Unstable integration & delivery
+name: 🔁 Branch Integration Testing
 
 
 # Driving Event
 # -------------
 #
-# What event starts this workflow: a push to ``main`` (or ``master`` in old
-# parlance).
-
+# What event starts this workflow: a push to any branch other than ``main``
 on:
     push:
         branches:
@@ -42,8 +40,8 @@ on:
 # Round up, yee-haw!
 
 jobs:
-    unstable-assembly:
-        name: 🧩 Unstable Assembly
+    integration-assembly:
+        name: 🧩 Integration Assembly
         runs-on: ubuntu-latest
         if: github.actor != 'pdsen-ci'
         steps:
