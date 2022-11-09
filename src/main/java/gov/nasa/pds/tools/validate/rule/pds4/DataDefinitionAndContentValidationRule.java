@@ -114,8 +114,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
           getTarget(), objectCounter, -1));
       // e.printStackTrace();
     } finally {
-        if(nonNull(label))
-            label.close();
+      label.close();
     }
   }
 
