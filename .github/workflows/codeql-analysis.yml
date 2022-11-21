@@ -42,6 +42,7 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
          languages: ${{ matrix.language }}
+         queries: security-and-quality, security-extended
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
@@ -60,3 +61,14 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+      
+    - run: |
+        pip install nasa-scrub
+        python3 -m scrub.tools.parsers.translate_results /home/runner/work/validate/results/*.sarif /home/runner/work/validate/results/codeql.scrub ${{ github.workspace }} scrub
+        python3 -m scrub.tools.parsers.csv_parser /home/runner/work/validate/results
+      
+    - name: Upload CodeQL Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: codeql-artifacts
+        path: /home/runner/work/validate/results/*
